@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} 
+  <title>{{ active_table_name }}</title>
+{% endblock %}
+
+{% block content %}
+
+<div id="records">
+    <h3 id="table-name">{{ active_table_name }}</h3>
+    
+    <table id="table-col">
+      <tr>
+        {% for col in columns %}
+          <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+
+      {% for record in records %}
+      <tr>
+          {% for cell in record %}
+            <td>{{ cell }}</td>
+          {% endfor %}
+      </tr>
+      {% endfor %}
+  </table>
+  
+</div>
+
+{% endblock %}

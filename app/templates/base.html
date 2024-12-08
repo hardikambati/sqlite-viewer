@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="fastapitutorial.com" content="Nofoobar">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+        }
+        #table-list {
+            width: 25%;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+        }
+        #records {
+            width: 75%;
+            padding: 10px;
+        }
+        .table-item {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .table-item:hover {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        #table-col {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    {% block title %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="table-list">
+        {% for table in table_name_list %}
+          <div class="table-item" onclick="showRecords('{{ table }}')">{{ table }}</div>
+        {% endfor %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    {% block scripts %}
+    {% endblock %}
+
+
+</body>
+
+<script>
+    function showRecords(tableName) {
+        window.location.href = `/${encodeURIComponent(tableName)}`;
+    }
+</script>
+
+</html>
