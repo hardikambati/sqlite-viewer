@@ -10,7 +10,7 @@ class DBConnector:
         self.conn = None
 
     def connect(self):
-        self.conn = sqlite3.connect("app.db")
+        self.conn = sqlite3.connect("/code/app.db")
         cursor = self.conn.cursor()
         return cursor
     
