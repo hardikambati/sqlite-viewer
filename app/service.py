@@ -1,3 +1,5 @@
+from fastapi import HTTPException
+
 from db import DBConnector
 from utils.query_enum import QueryEnum
 
@@ -14,10 +16,14 @@ class DBService:
         
     def get_all_tables(self) -> list:
         # [('users',), ('orders',)]
-        self.cursor.execute(QueryEnum.GET_ALL_TABLES.value)
-        tables: list = self.cursor.fetchall()
-        data = [table[0] for table in tables]
-        return data
+        try:
+            self.cursor.execute(QueryEnum.GET_ALL_TABLES.value)
+            tables: list = self.cursor.fetchall()
+            data = [table[0] for table in tables]
+            return data
+        except Exception as e:
+            print(e)
+            return []
 
     def get_column_names(self, name: str) -> list:
         # [
@@ -33,6 +39,9 @@ class DBService:
 
     def get_records_for_table(self, name: str) -> list:
         # [(1, 'tes1', 'test1@example.com', '$2b$12$Ek1zMn1rJSlsjYVTLBYmd.BeiHRikR7/NcW6KIcQUqAzZViR2Nj/.'),]
-        self.cursor.execute(QueryEnum.GET_RECORDS.value.format(table=name))
-        records: list = self.cursor.fetchall()
-        return records
+        try:
+            self.cursor.execute(QueryEnum.GET_RECORDS.value.format(table=name))
+            records: list = self.cursor.fetchall()
+            return records
+        except Exception as e:
+            raise HTTPException(detail=f"Table with name {name} does not exist", status_code=400)
